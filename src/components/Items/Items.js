@@ -7,7 +7,7 @@ const Items = ({ items, x, current }) => {
         <>
             {items.map((slideData, index) => {
                 return (
-                    <div key={index} className={index === current + 1 ? styles.highlight : styles.slide} style={{ transform: index === current + 1 ? `translateX(${x}%) scale(1.1)` : `translateX(${x}%)` }}>
+                    <div key={index} className={index === current + 1 ? styles.highlight : styles.slide} style={{ transform: index === current + 1 ? `translateX(${x}%) scale(1.2)` : `translateX(${x}%)` }}>
                         <div className={styles.slideimg}>
                             <img className={styles.image} src={slideData.image} alt={slideData.name} />
                         </div>

@@ -3,12 +3,12 @@
   border-radius: 10px;
   overflow: hidden;
   transition: 0.5s ease-in-out;
-  min-width: 30%;
-  margin: 1.5%;
+  min-width: 25%;
+  margin: 0 4%;
 }
 
 .slideimg {
-  height: 400px;
+  height: 300px;
 }
 
 .image {
@@ -58,6 +58,6 @@
   border-radius: 10px;
   overflow: hidden;
   transition: 0.5s ease-in-out;
-  min-width: 30%;
-  margin: 2%;
+  min-width: 25%;
+  margin: 0 4.5%;
 }
