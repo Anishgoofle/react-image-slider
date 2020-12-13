@@ -7,15 +7,13 @@ const Carousel = ({ slides }) => {
 
     const [showLeft, setShowLeft] = useState(false);
     const [showRight, setShowRight] = useState(true);
-    const [currentSlides, setCurrentSlides] = useState(slides);
     const [current, setCurrent] = useState(0);
+    const [x, setX] = useState(0);
 
     useEffect(() => {
         if (!Array.isArray(slides) || slides.length <= 0) {
             return null;
         }
-        const currSlides = slides.slice(current, current + 3);
-        setCurrentSlides(currSlides);
         if (current === 0) {
             setShowLeft(false);
         }
@@ -29,20 +27,21 @@ const Carousel = ({ slides }) => {
     const prevSlide = () => {
         setCurrent(current - 1);
         setShowRight(true);
+        setX(x + 110);
     }
 
     const nextSlide = () => {
         setCurrent(current + 1);
         setShowLeft(true);
+        setX(x - 110);
     }
 
     const classes = useStyles();
     return (
-        // try something different .. with arrow maybe the shift method
         <>
             <FaArrowAltCircleLeft className={showLeft ? classes.leftArrow : classes.hide} onClick={prevSlide} />
-            <div className={classes.carousel} >
-                <Items items={currentSlides} currentIndex={current} />
+            <div className={classes.slider}>
+                <Items items={slides} x={x} current={current} />
             </div>
             <FaArrowAltCircleRight className={showRight ? classes.rightArrow : classes.hide} onClick={nextSlide} />
         </>

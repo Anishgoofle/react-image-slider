@@ -1,13 +1,13 @@
 import React from "react";
 import styles from './styles.module.css';
 
-const Items = ({ items }) => {
+const Items = ({ items, x, current }) => {
 
     return (
         <>
             {items.map((slideData, index) => {
                 return (
-                    <div key={index} className={index === 1 ? styles.highlight : styles.slidecontainer}>
+                    <div key={index} className={index === current + 1 ? styles.highlight : styles.slide} style={{ transform: index === current + 1 ? `translateX(${x}%) scale(1.1)` : `translateX(${x}%)` }}>
                         <div className={styles.slideimg}>
                             <img className={styles.image} src={slideData.image} alt={slideData.name} />
                         </div>
