@@ -11,7 +11,8 @@ const Carousel = ({ slides }) => {
     const [current, setCurrent] = useState(0);
     const [x, setX] = useState(0);
     const [filters, setFilters] = useState([]);
-    const [selectedFilters, setSelectedFilters] = useState([]);
+    const [currentSlides, setCurrentSlides] = useState(slides);
+    // const [selectedFilters, setSelectedFilters] = useState([]);
 
     useEffect(() => {
         const slideFilters = slides.reduce((p, slideData) => {
@@ -21,29 +22,29 @@ const Carousel = ({ slides }) => {
             return p;
         }, []);
 
-        const obj = slideFilters.reduce((obj, filter) => {
-            obj[filter] = {
-                selected: false
-            }
-            return obj;
-        }, {});
+        // const obj = slideFilters.reduce((obj, filter) => {
+        //     obj[filter] = {
+        //         selected: false
+        //     }
+        //     return obj;
+        // }, {});
 
         setFilters(slideFilters);
-        setSelectedFilters(obj);
+        // setSelectedFilters(obj);
     }, []);
 
 
     useEffect(() => {
-        if (!Array.isArray(slides) || slides.length <= 0) {
+        if (!Array.isArray(currentSlides) || currentSlides.length <= 0) {
             return null;
         }
         if (current === 0) {
             setShowLeft(false);
         }
-        if (current === slides.length - 3) {
+        if (current === currentSlides.length - 3) {
             setShowRight(false);
         }
-    }, [current]);
+    }, [current, currentSlides]);
 
 
 
@@ -60,22 +61,27 @@ const Carousel = ({ slides }) => {
     }
 
     const onFilterChange = (data) => {
-        setSelectedFilters(prevState => ({
-            ...prevState,
-            [data]: {
-                selected: !prevState[data].selected
-            }
-        }));
+        // setSelectedFilters(prevState => ({
+        //     ...prevState,
+        //     [data]: {
+        //         selected: !prevState[data].selected
+        //     }
+        // }));
+        const filterSlides = slides.filter(slide => slide.category.includes(data));
+        setCurrentSlides(filterSlides);
+        setCurrent(0);
+        setX(0);
+
     }
 
     const classes = useStyles();
 
     return (
         <>
-            <Filter filters={filters} onFilterChange={onFilterChange} selectedFilters={selectedFilters} />
+            <Filter filters={filters} onFilterChange={onFilterChange} />
             <FaArrowAltCircleLeft className={showLeft ? classes.leftArrow : classes.hide} onClick={prevSlide} />
             <div className={classes.slider}>
-                <Items items={slides} x={x} current={current} />
+                <Items items={currentSlides} x={x} current={current} />
             </div>
             <FaArrowAltCircleRight className={showRight ? classes.rightArrow : classes.hide} onClick={nextSlide} />
         </>
