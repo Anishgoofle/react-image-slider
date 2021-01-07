@@ -12,7 +12,6 @@ const Carousel = ({ slides }) => {
     const [x, setX] = useState(0);
     const [filters, setFilters] = useState([]);
     const [currentSlides, setCurrentSlides] = useState(slides);
-    // const [selectedFilters, setSelectedFilters] = useState([]);
 
     useEffect(() => {
         const slideFilters = slides.reduce((p, slideData) => {
@@ -21,16 +20,7 @@ const Carousel = ({ slides }) => {
             });
             return p;
         }, []);
-
-        // const obj = slideFilters.reduce((obj, filter) => {
-        //     obj[filter] = {
-        //         selected: false
-        //     }
-        //     return obj;
-        // }, {});
-
         setFilters(slideFilters);
-        // setSelectedFilters(obj);
     }, []);
 
 
@@ -44,7 +34,7 @@ const Carousel = ({ slides }) => {
         if (current === currentSlides.length - 3) {
             setShowRight(false);
         }
-    }, [current, currentSlides]);
+    }, [current]);
 
 
 
@@ -61,16 +51,13 @@ const Carousel = ({ slides }) => {
     }
 
     const onFilterChange = (data) => {
-        // setSelectedFilters(prevState => ({
-        //     ...prevState,
-        //     [data]: {
-        //         selected: !prevState[data].selected
-        //     }
-        // }));
         const filterSlides = slides.filter(slide => slide.category.includes(data));
+        console.log('filter', filterSlides);
         setCurrentSlides(filterSlides);
         setCurrent(0);
         setX(0);
+        setShowLeft(false);
+        setShowRight(true);
 
     }
 
